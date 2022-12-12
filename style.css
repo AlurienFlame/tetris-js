@@ -1,0 +1,30 @@
+:root {
+  --square-color: #F3B57A;
+  --background-color: #4F6185;
+  --board-color: #5B7993;
+}
+
+
+body {
+  margin: 0;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  height: 100vh;
+  background-color: var(--background-color);
+}
+
+#game {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  background-color: var(--board-color);
+  gap: 0.3rem;
+  padding: 0.3rem;
+}
+
+.square {
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--square-color);
+}
