@@ -15,13 +15,10 @@ export class Square {
   move(dx, dy) {
     this.x += dx;
     this.y += dy;
-    if (!this.isStateValid()) {
-      return;
-    }
   }
 
   isStateValid() {
-    if (!this.board.isWithinBoundaries(this.x, this.y)) return false;
+    if (!this.board.isWithinBoundariesExcludingTop(this.x, this.y)) return false;
     for (let square of this.board.squares) {
       if (square === this) continue;
       if (square.x === this.x && square.y === this.y) return false;

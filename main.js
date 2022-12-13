@@ -5,14 +5,18 @@ let board = new Board();
 board.draw();
 
 // main loop
-setInterval(main, 1000);
+let mainLoopInterval = setInterval(main, 1000);
 function main() {
   board.activeTetromino.move(0, 1);
   board.draw();
+
+  if (board.gameOver) {
+    clearInterval(mainLoopInterval);
+  }
 }
 
 // Event listeners
-// TODO: ArrowDown should check if key is down every few milliseconds instead of listening for keydown
+// TODO: check if key is down every few milliseconds instead of listening for keydown
 document.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "ArrowLeft":

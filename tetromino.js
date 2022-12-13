@@ -39,7 +39,8 @@ export class Tetromino {
 
     // Generate squares
     for (let i = 0; i < 4; i++) {
-      this.squares.push(new Square(board, this.shape.offsets[i][0] + 3, this.shape.offsets[i][1] - 1, this.shape.color));
+      this.squares.push(new Square(board, this.shape.offsets[i][0] + 3, this.shape.offsets[i][1] - 2, this.shape.color));
+      //but we don't lose before reaching the top of the map.
     }
   }
 
@@ -58,7 +59,7 @@ export class Tetromino {
       });
       // Land
       if (dy > 0) {
-        this.board.spawnTetromino();
+        this.land();
       }
       return false; // Move failed
     }
@@ -67,7 +68,6 @@ export class Tetromino {
 
   // Black magic, thanks copilot
   rotate() {
-    // TODO: Allow rotation against top of map
     // Rotate
     this.squares.forEach((square) => {
       let dx = square.x - this.squares[1].x;
@@ -94,5 +94,15 @@ export class Tetromino {
       }
     }
     return true;
+  }
+
+  land() {
+    this.board.clearLines();
+    this.board.spawnTetromino();
+    for (let square of this.squares) {
+      if (square.y <= 0) {
+        this.board.lose();
+      }
+    }
   }
 }
