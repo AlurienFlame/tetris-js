@@ -8,7 +8,7 @@ export class Square {
 
   draw() {
     if (!this.board.isWithinBoundaries(this.x, this.y)) return;
-    document.getElementById(`square-${this.x}-${this.y}`).style.backgroundColor = this.color;
+    document.getElementById(`square-${this.x}-${this.y}`).style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(this.color);
   }
 
   move(dx, dy) {
@@ -27,7 +27,6 @@ export class Square {
   }
 
   getGhost() {
-    return new Square(this.board, this.x, this.y, this.color + "55");
-    // TODO: Merge square color with background color instead of adding transparency
+    return new Square(this.board, this.x, this.y, this.color + "-ghost");
   }
 }

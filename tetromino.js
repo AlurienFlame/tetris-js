@@ -1,35 +1,35 @@
 import { Square } from "./square.js";
 
-const SHAPES = {
-  I: {
+const SHAPES = [
+  {
     offsets: [[0, 0], [1, 0], [2, 0], [3, 0]],
-    color: "#6BA4AB"
+    id: "I"
   },
-  J: {
+  {
     offsets: [[0, 0], [1, 0], [2, 0], [2, 1]],
-    color: "#5C6B92"
+    id: "J"
   },
-  L: {
+  {
     offsets: [[0, 0], [1, 0], [2, 0], [0, 1]],
-    color: "#EE896D"
+    id: "L"
   },
-  O: {
+  {
     offsets: [[0, 0], [1, 0], [0, 1], [1, 1]],
-    color: "#F3B57A"
+    id: "O"
   },
-  T: {
+  {
     offsets: [[0, 0], [1, 0], [2, 0], [1, 1]],
-    color: "#A87594"
+    id: "T"
   },
-  S: {
+  {
     offsets: [[0, 0], [1, 0], [1, 1], [2, 1]],
-    color: "#618674"
+    id: "S"
   },
-  Z: {
+  {
     offsets: [[0, 1], [1, 1], [1, 0], [2, 0]],
-    color: "#DD6F7A"
+    id: "Z"
   }
-};
+];
 
 export class Tetromino {
   constructor(board, isGhost = false) {
@@ -41,7 +41,7 @@ export class Tetromino {
     // Generate squares
     if (!isGhost) {
       for (let i = 0; i < 4; i++) {
-        let square = new Square(board, shape.offsets[i][0] + 3, shape.offsets[i][1] - 2, shape.color)
+        let square = new Square(board, shape.offsets[i][0] + 3, shape.offsets[i][1] - 2, `--color-${shape.id}`);
         this.squares.push(square);
         this.board.squares.push(square);
       }
