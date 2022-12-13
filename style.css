@@ -60,3 +60,8 @@ a, a:visited {
   height: 1rem;
   background-color: var(--square-color);
 }
+
+.score {
+  margin: 0.5rem 0 0 0;
+  text-align: center;
+}

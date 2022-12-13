@@ -7,6 +7,8 @@ board.draw();
 // main loop
 let mainLoopInterval = setInterval(main, 1000);
 function main() {
+  // TODO: Accelleration
+  // TODO: Saved block
   board.activeTetromino.move(0, 1);
   board.draw();
 

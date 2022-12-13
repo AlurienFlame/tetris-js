@@ -2,6 +2,7 @@ import { Tetromino } from "./tetromino.js";
 
 export class Board {
   constructor() {
+    this.score = 0;
     this.squares = [];
     this.spawnTetromino();
   }
@@ -59,8 +60,11 @@ export class Board {
         combo++;
       }
     }
-    if (combo) {
-      console.log(`Combo: ${combo}x`);
-    }
+    this.addScore((combo ** 2) * 1000); // TODO: Amplify by game length
+  }
+
+  addScore(delta) {
+    this.score += delta;
+    document.getElementById("score-num").innerText = this.score;
   }
 }
