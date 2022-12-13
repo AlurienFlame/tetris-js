@@ -1,21 +1,21 @@
 :root {
-  --background-color: #24273A;
-  --board-color: #34384E;
-  --square-color: #5B6078;
-  --color-I: #00FFFF;
-  --color-J: #0000FF;
-  --color-L: #FFA500;
-  --color-O: #FFFF00;
-  --color-S: #008000;
-  --color-T: #800080;
-  --color-Z: #FF0000;
-  --color-I-ghost: rgba(0, 255, 255, 0.5);
-  --color-J-ghost: rgba(0, 0, 255, 0.5);
-  --color-L-ghost: rgba(255, 165, 0, 0.5);
-  --color-O-ghost: rgba(255, 255, 0, 0.5);
-  --color-S-ghost: rgba(0, 128, 0, 0.5);
-  --color-T-ghost: rgba(128, 0, 128, 0.5);
-  --color-Z-ghost: rgba(255, 0, 0, 0.5);
+  --background-color: #3C3836;
+  --board-color: #504945;
+  --square-color: #665C54;
+  --color-I: #689D6A;
+  --color-J: #458588;
+  --color-L: #D65D0E;
+  --color-O: #D79921;
+  --color-S: #98971A;
+  --color-T: #B16286;
+  --color-Z: #CC241D;
+  --color-I-ghost: #8EC07C;
+  --color-J-ghost: #83A598;
+  --color-L-ghost: #FE8019;
+  --color-O-ghost: #FABD2F;
+  --color-S-ghost: #B8BB26;
+  --color-T-ghost: #D3869B;
+  --color-Z-ghost: #FB4934;
 }
 
 
