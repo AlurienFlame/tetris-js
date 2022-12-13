@@ -8,6 +8,7 @@ export class Square {
 
   draw() {
     if (!this.board.isWithinBoundaries(this.x, this.y)) return;
+    // TODO: Color by class instead so I can use animations or gradients
     document.getElementById(`square-${this.x}-${this.y}`).style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(this.color);
   }
 
