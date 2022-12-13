@@ -1,18 +1,13 @@
-import { board } from './board.js';
-
 export class Square {
-  constructor(x, y, color) {
+  constructor(board, x, y, color) {
     this.x = x;
     this.y = y;
     this.color = color;
+    this.board = board;
     board.squares.push(this);
   }
 
   draw() {
-    if (!this.isStateValid(this.x, this.y)) {
-      console.warn(`Invalid location: ${this.x}, ${this.y}`);
-      return;
-    }
     document.getElementById(`square-${this.x}-${this.y}`).style.backgroundColor = this.color;
   }
 
@@ -20,12 +15,16 @@ export class Square {
     this.x += dx;
     this.y += dy;
     if (!this.isStateValid()) {
-      console.warn(`Invalid move executed: ${this.x}, ${this.y}`);
       return;
     }
   }
 
   isStateValid() {
-    return board.isValidLocation(this.x, this.y);
+    if (!this.board.isWithinBoundaries(this.x, this.y)) return false;
+    for (let square of this.board.squares) {
+      if (square === this) continue;
+      if (square.x === this.x && square.y === this.y) return false;
+    }
+    return true;
   }
 }

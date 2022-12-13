@@ -1,8 +1,11 @@
+import { Tetromino } from "./tetromino.js";
+
 export class Board {
   constructor() {
     this.squares = [];
+    this.spawnTetromino();
   }
- 
+
   draw() {
     for (let x = 0; x < 10; x++) {
       for (let y = 0; y < 20; y++) {
@@ -14,22 +17,15 @@ export class Board {
     });
   }
 
-  isValidLocation(x, y) {
-    if (x < 0 || x > 9 || y < 0 || y > 19) {
-      return false;
-    }
-    return !this.isOccupied(x, y);
+  isWithinBoundaries(x, y) {
+    return x >= 0 && x < 10 && y >= 0 && y < 20;
   }
 
-  isOccupied(x, y) {
-    this.squares.forEach((square) => {
-      if (square.x == x && square.y == y) {
-        return true;
-      }
-    });
-    return false;
+  spawnTetromino() {
+    this.activeTetromino = new Tetromino(this);
+    if (!this.activeTetromino.isStateValid()) {
+      // Game over
+      console.log("Game over");
+    }
   }
 }
-
-let board = new Board();
-export { board };

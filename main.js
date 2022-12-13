@@ -1,34 +1,34 @@
-import { board } from "./board.js";
-import { Tetromino } from "./tetromino.js";
-
-// globals
-let activeTetromino;
+import { Board } from "./board.js";
 
 // setup
-activeTetromino = new Tetromino();
+let board = new Board();
 board.draw();
 
 // main loop
 setInterval(main, 1000);
 function main() {
-  activeTetromino.move(0, 1);
+  board.activeTetromino.move(0, 1);
   board.draw();
 }
 
 // Event listeners
+// TODO: ArrowDown should check if key is down every few milliseconds instead of listening for keydown
 document.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "ArrowLeft":
-      activeTetromino.move(-1, 0);
+      board.activeTetromino.move(-1, 0);
       break;
     case "ArrowRight":
-      activeTetromino.move(1, 0);
+      board.activeTetromino.move(1, 0);
       break;
     case "ArrowDown":
-      activeTetromino.move(0, 1);
+      board.activeTetromino.move(0, 1);
       break;
     case "ArrowUp":
-      activeTetromino.rotate();
+      board.activeTetromino.rotate();
+      break;
+    case " ":
+      while (board.activeTetromino.move(0, 1)) {} // Move down until .move returns false
       break;
   }
   board.draw();

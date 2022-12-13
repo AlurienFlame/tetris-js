@@ -21,14 +21,17 @@ const COLOR = {
 };
 
 export class Tetromino {
-  constructor() {
+  constructor(board) {
+    this.board = board;
     this.shape = SHAPE.I;
     this.squares = [];
     for (let i = 0; i < 4; i++) {
-      this.squares.push(new Square(4 + i, 0, COLOR[this.shape]));
+      this.squares.push(new Square(board, 4 + i, 0, COLOR[this.shape]));
     }
   }
 
+  // Update location of squares, undo if invalid
+  // Return true if move was successful
   move(dx, dy) {
     // Move
     this.squares.forEach((square) => {
@@ -40,7 +43,13 @@ export class Tetromino {
       this.squares.forEach((square) => {
         square.move(-dx, -dy);
       });
+      // Land
+      if (dy > 0) {
+        this.board.spawnTetromino();
+      }
+      return false; // Move failed
     }
+    return true; // Move was successful
   }
 
   // Black magic, thanks copilot
