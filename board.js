@@ -66,5 +66,25 @@ export class Board {
   addScore(delta) {
     this.score += delta;
     document.getElementById("score-num").innerText = this.score;
+    // TODO: Track high score in local storage
+  }
+
+  hold() {
+    if (this.activeTetromino?.alreadyHeld) return;
+
+    // Remove active tetromino from board
+    this.squares = this.squares.filter((square) => !this.activeTetromino.squares.includes(square));
+    this.activeTetromino.alreadyHeld = true;
+
+    if (this.heldTetromino) {
+      // Add held tetromino to board
+      this.squares.push(...this.heldTetromino.squares);
+      this.heldTetromino.moveTo(3, -2);
+      // Swap
+      [this.heldTetromino, this.activeTetromino] = [this.activeTetromino, this.heldTetromino];
+    } else {
+      this.heldTetromino = this.activeTetromino;
+      this.spawnTetromino();
+    }
   }
 }

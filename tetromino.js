@@ -35,13 +35,14 @@ export class Tetromino {
   constructor(board, isGhost = false) {
     this.board = board;
     this.isGhost = isGhost;
-    let shape = Object.values(SHAPES)[Math.floor(Math.random() * Object.values(SHAPES).length)];
+    this.shape = Object.values(SHAPES)[Math.floor(Math.random() * Object.values(SHAPES).length)];
     this.squares = [];
 
     // Generate squares
     if (!isGhost) {
       for (let i = 0; i < 4; i++) {
-        let square = new Square(board, shape.offsets[i][0] + 3, shape.offsets[i][1] - 2, `--color-${shape.id}`);
+        // TODO: Follow official tetris guidelines for spawn location https://tetris.fandom.com/wiki/Tetris_Guideline
+        let square = new Square(board, this.shape.offsets[i][0] + 3, this.shape.offsets[i][1] - 2, `--color-${this.shape.id}`);
         this.squares.push(square);
         this.board.squares.push(square);
       }
@@ -69,6 +70,18 @@ export class Tetromino {
     }
     return true; // Move was successful
   }
+
+  moveTo(x, y) {
+    // Move
+    for (let i = 0; i < 4; i++) {
+      this.squares[i].moveTo(x + this.shape.offsets[i][0], y + this.shape.offsets[i][1]);
+    }
+
+    if (!this.isStateValid()) {
+      this.land();
+    }
+  }
+
 
   // Black magic, thanks copilot
   rotate() {
@@ -108,6 +121,7 @@ export class Tetromino {
     for (let square of this.squares) {
       if (square.y <= 0) {
         this.board.lose();
+        break;
       }
     }
   }

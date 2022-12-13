@@ -16,6 +16,11 @@ export class Square {
     this.y += dy;
   }
 
+  moveTo(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
   isStateValid() {
     if (!this.board.isWithinBoundariesExcludingTop(this.x, this.y)) return false;
     for (let square of this.board.squares) {

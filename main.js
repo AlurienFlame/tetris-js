@@ -37,6 +37,9 @@ document.addEventListener("keydown", (event) => {
     case " ":
       while (board.activeTetromino.move(0, 1)) {} // Move down until .move returns false
       break;
+    case "c":
+      board.hold();
+      break;
   }
   board.draw();
 });
