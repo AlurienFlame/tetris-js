@@ -12,9 +12,10 @@ export class Board {
         document.getElementById(`square-${x}-${y}`).style.backgroundColor = "var(--square-color)";
       }
     }
-    this.squares.forEach((square) => {
+    for (let square of this.squares) {
       square.draw();
-    });
+    }
+    this.activeTetromino.dropGhost();
   }
 
   isWithinBoundaries(x, y) {

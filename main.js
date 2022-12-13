@@ -11,6 +11,7 @@ function main() {
   board.draw();
 
   if (board.gameOver) {
+    // TODO: Move all game logic into its own class for easy restarting
     clearInterval(mainLoopInterval);
   }
 }

@@ -3,44 +3,48 @@ import { Square } from "./square.js";
 const SHAPES = {
   I: {
     offsets: [[0, 0], [1, 0], [2, 0], [3, 0]],
-    color: "cyan"
+    color: "#6BA4AB"
   },
   J: {
     offsets: [[0, 0], [1, 0], [2, 0], [2, 1]],
-    color: "blue"
+    color: "#5C6B92"
   },
   L: {
     offsets: [[0, 0], [1, 0], [2, 0], [0, 1]],
-    color: "orange"
+    color: "#EE896D"
   },
   O: {
     offsets: [[0, 0], [1, 0], [0, 1], [1, 1]],
-    color: "yellow"
+    color: "#F3B57A"
   },
   T: {
     offsets: [[0, 0], [1, 0], [2, 0], [1, 1]],
-    color: "purple"
+    color: "#A87594"
   },
   S: {
     offsets: [[0, 0], [1, 0], [1, 1], [2, 1]],
-    color: "green"
+    color: "#618674"
   },
   Z: {
     offsets: [[0, 1], [1, 1], [1, 0], [2, 0]],
-    color: "red"
+    color: "#DD6F7A"
   }
 };
 
 export class Tetromino {
-  constructor(board) {
+  constructor(board, isGhost = false) {
     this.board = board;
-    this.shape = Object.values(SHAPES)[Math.floor(Math.random() * Object.values(SHAPES).length)];
+    this.isGhost = isGhost;
+    let shape = Object.values(SHAPES)[Math.floor(Math.random() * Object.values(SHAPES).length)];
     this.squares = [];
 
     // Generate squares
-    for (let i = 0; i < 4; i++) {
-      this.squares.push(new Square(board, this.shape.offsets[i][0] + 3, this.shape.offsets[i][1] - 2, this.shape.color));
-      //but we don't lose before reaching the top of the map.
+    if (!isGhost) {
+      for (let i = 0; i < 4; i++) {
+        let square = new Square(board, shape.offsets[i][0] + 3, shape.offsets[i][1] - 2, shape.color)
+        this.squares.push(square);
+        this.board.squares.push(square);
+      }
     }
   }
 
@@ -69,6 +73,7 @@ export class Tetromino {
   // Black magic, thanks copilot
   rotate() {
     // Rotate
+    // FIXME: square rotates wrong - implement centers of rotation
     this.squares.forEach((square) => {
       let dx = square.x - this.squares[1].x;
       let dy = square.y - this.squares[1].y;
@@ -97,12 +102,22 @@ export class Tetromino {
   }
 
   land() {
+    if (this.isGhost) return;
     this.board.clearLines();
     this.board.spawnTetromino();
     for (let square of this.squares) {
       if (square.y <= 0) {
         this.board.lose();
       }
+    }
+  }
+
+  dropGhost() {
+    let ghost = new Tetromino(this.board, true);
+    ghost.squares = this.squares.map((square) => square.getGhost());
+    while (ghost.move(0, 1)) { }
+    for (let square of ghost.squares) {
+      square.draw();
     }
   }
 }
