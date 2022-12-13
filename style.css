@@ -4,6 +4,7 @@
   --square-color: #665C54;
   --text-color: #FBF1C7;
   --link-color: #83A598;
+  --accent-color: #D65D0E;
   --color-I: #689D6A;
   --color-J: #458588;
   --color-L: #D65D0E;
@@ -68,6 +69,11 @@ a:visited {
   height: fit-content;
 }
 
+.score {
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
 #game {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -85,7 +91,26 @@ a:visited {
   background-color: var(--square-color);
 }
 
-.score {
-  margin: 0.5rem 0;
-  text-align: center;
+button {
+  grid-column: 1 / 4;
+  margin: 1rem;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.5rem 3rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border: none;
+  box-shadow: black 3px 3px 0px;
+}
+
+button:hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+}
+
+button:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
 }

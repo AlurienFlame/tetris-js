@@ -39,6 +39,7 @@ document.addEventListener("keydown", (event) => {
     case "c":
       board.hold();
       break;
+    // TODO: Add pause
   }
   board.draw();
 });
