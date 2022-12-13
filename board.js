@@ -74,17 +74,30 @@ export class Board {
 
     // Remove active tetromino from board
     this.squares = this.squares.filter((square) => !this.activeTetromino.squares.includes(square));
+    this.activeTetromino.moveTo(0, 0);
     this.activeTetromino.alreadyHeld = true;
 
     if (this.heldTetromino) {
       // Add held tetromino to board
       this.squares.push(...this.heldTetromino.squares);
       this.heldTetromino.moveTo(3, -2);
-      // Swap
-      [this.heldTetromino, this.activeTetromino] = [this.activeTetromino, this.heldTetromino];
-    } else {
-      this.heldTetromino = this.activeTetromino;
+    }
+
+    // Swap variables
+    [this.heldTetromino, this.activeTetromino] = [this.activeTetromino, this.heldTetromino];
+
+    // Spawn new tetromino if necessary
+    if (!this.activeTetromino) {
       this.spawnTetromino();
+    }
+
+    // Update held tetromino display
+    for (let square of document.getElementById("holder").children) {
+      square.style.backgroundColor = "var(--square-color)";
+    }
+    for (let square of this.heldTetromino.squares) {
+      if (square.x < 0 || square.x > 3 || square.y < 0 || square.y > 3) continue;
+      document.getElementById(`held-${square.x}-${square.y}`).style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(square.color);
     }
   }
 }
