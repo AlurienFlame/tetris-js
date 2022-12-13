@@ -20,12 +20,13 @@ export class Board {
   isWithinBoundaries(x, y) {
     return x >= 0 && x < 10 && y >= 0 && y < 20;
   }
-
+  
   spawnTetromino() {
-    this.activeTetromino = new Tetromino(this);
-    if (!this.activeTetromino.isStateValid()) {
-      // Game over
-      console.log("Game over");
+    if (this.activeTetromino && !this.activeTetromino.isStateValid()) {
+      // Game Over
+      return;
     }
+
+    this.activeTetromino = new Tetromino(this);
   }
 }

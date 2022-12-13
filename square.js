@@ -8,6 +8,7 @@ export class Square {
   }
 
   draw() {
+    if (!this.board.isWithinBoundaries(this.x, this.y)) return;
     document.getElementById(`square-${this.x}-${this.y}`).style.backgroundColor = this.color;
   }
 

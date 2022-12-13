@@ -1,32 +1,45 @@
 import { Square } from "./square.js";
 
-const SHAPE = {
-  I: 0,
-  J: 1,
-  L: 2,
-  O: 3,
-  T: 4,
-  S: 5,
-  Z: 6
-};
-
-const COLOR = {
-  0: "cyan",
-  1: "blue",
-  2: "orange",
-  3: "yellow",
-  4: "purple",
-  5: "green",
-  6: "red"
+const SHAPES = {
+  I: {
+    offsets: [[0, 0], [1, 0], [2, 0], [3, 0]],
+    color: "cyan"
+  },
+  J: {
+    offsets: [[0, 0], [1, 0], [2, 0], [2, 1]],
+    color: "blue"
+  },
+  L: {
+    offsets: [[0, 0], [1, 0], [2, 0], [0, 1]],
+    color: "orange"
+  },
+  O: {
+    offsets: [[0, 0], [1, 0], [0, 1], [1, 1]],
+    color: "yellow"
+  },
+  T: {
+    offsets: [[0, 0], [1, 0], [2, 0], [1, 1]],
+    color: "purple"
+  },
+  S: {
+    offsets: [[0, 0], [1, 0], [1, 1], [2, 1]],
+    color: "green"
+  },
+  Z: {
+    offsets: [[0, 1], [1, 1], [1, 0], [2, 0]],
+    color: "red"
+  }
 };
 
 export class Tetromino {
   constructor(board) {
     this.board = board;
-    this.shape = SHAPE.I;
+    this.shape = Object.values(SHAPES)[Math.floor(Math.random() * Object.values(SHAPES).length)];
     this.squares = [];
+
+    // Generate squares
     for (let i = 0; i < 4; i++) {
-      this.squares.push(new Square(board, 4 + i, 0, COLOR[this.shape]));
+      this.squares.push(new Square(board, this.shape.offsets[i][0] + 3, this.shape.offsets[i][1] - 1, this.shape.color));
     }
   }
 
@@ -54,6 +67,7 @@ export class Tetromino {
 
   // Black magic, thanks copilot
   rotate() {
+    // TODO: Allow rotation against top of map
     // Rotate
     this.squares.forEach((square) => {
       let dx = square.x - this.squares[1].x;
