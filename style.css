@@ -2,6 +2,8 @@
   --background-color: #3C3836;
   --board-color: #504945;
   --square-color: #665C54;
+  --text-color: #FBF1C7;
+  --link-color: #83A598;
   --color-I: #689D6A;
   --color-J: #458588;
   --color-L: #D65D0E;
@@ -24,8 +26,24 @@ body {
   display: grid;
   justify-content: center;
   align-content: center;
+  grid-template-rows: 1fr 1fr 1fr;
   height: 100vh;
   background-color: var(--background-color);
+  font-family: 'Rubik', sans-serif;
+  color: var(--text-color);
+}
+
+.titlebar > h1 {
+  text-align: center;
+}
+
+.links {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+a, a:visited {
+  color: var(--link-color);
 }
 
 #game {
