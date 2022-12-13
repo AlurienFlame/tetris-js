@@ -9,7 +9,7 @@ export class Square {
   }
 
   draw() {
-    if (!board.isValidLocation(this.x, this.y)) {
+    if (!this.isStateValid(this.x, this.y)) {
       console.warn(`Invalid location: ${this.x}, ${this.y}`);
       return;
     }
@@ -19,12 +19,13 @@ export class Square {
   move(dx, dy) {
     this.x += dx;
     this.y += dy;
+    if (!this.isStateValid()) {
+      console.warn(`Invalid move executed: ${this.x}, ${this.y}`);
+      return;
+    }
   }
 
-  isValidMove(dx, dy) {
-    if (!board.isValidLocation(this.x + dx, this.y + dy)) {
-      return false;
-    }
-    return true;
+  isStateValid() {
+    return board.isValidLocation(this.x, this.y);
   }
 }
