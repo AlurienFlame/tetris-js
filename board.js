@@ -46,6 +46,7 @@ export class Board {
     scores.sort((a, b) => b - a);
     scores = scores.slice(0, 10);
     localStorage.setItem("scores", JSON.stringify(scores));
+    this.rerenderScoreboard();
   }
 
   rerenderScoreboard() {
