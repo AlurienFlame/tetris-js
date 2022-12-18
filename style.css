@@ -74,6 +74,22 @@ a:visited {
   text-align: center;
 }
 
+h3 {
+  margin: 0.5rem;
+}
+
+#scoreboard > *{
+  padding: 0.25rem;
+}
+
+#scoreboard > *:nth-child(2n) {
+  background-color: var(--square-color);
+}
+
+#scoreboard > :nth-child(2n+1) {
+  background-color: var(--board-color);
+}
+
 #game {
   display: grid;
   grid-template-columns: repeat(10, 1fr);

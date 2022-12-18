@@ -33,8 +33,30 @@ export class Board {
   }
 
   lose() {
+    if (this.gameOver) return;
     console.log("Game Over");
     this.gameOver = true;
+    this.addToScoreboard(this.score);
+  }
+
+  // Update local storage to contain the top 10 scores, including this if it's high enough
+  addToScoreboard(score) {
+    let scores = JSON.parse(localStorage.getItem("scores")) || [];
+    scores.push(score);
+    scores.sort((a, b) => b - a);
+    scores = scores.slice(0, 10);
+    localStorage.setItem("scores", JSON.stringify(scores));
+  }
+
+  rerenderScoreboard() {
+    let scores = JSON.parse(localStorage.getItem("scores")) || [];
+    let scoreboard = document.getElementById("scoreboard");
+    scoreboard.innerHTML = "";
+    for (let score of scores) {
+      let scoreElement = document.createElement("div");
+      scoreElement.innerText = score;
+      scoreboard.appendChild(scoreElement);
+    }
   }
 
   clearLines() {

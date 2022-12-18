@@ -2,6 +2,7 @@ import { Board } from "./board.js";
 
 // setup
 let board = new Board();
+board.rerenderScoreboard();
 let paused = true;
 
 // main loop
